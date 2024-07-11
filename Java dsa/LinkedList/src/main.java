@@ -18,6 +18,14 @@ public class main {
         PrintLinkedList(head);
         head=append(head,70);
         PrintLinkedList(head);
+        head=insert(head,30,89);
+        PrintLinkedList(head);
+        head=deleteatLast(head);
+        PrintLinkedList(head);
+        head=remove(head,89);
+        PrintLinkedList(head);
+        head=reverse(head);
+        PrintLinkedList(head);
     }
 
     public static Node insertatfront(Node head,int data){
@@ -57,6 +65,60 @@ public class main {
 
         curr.setNext(newnode);
         return head;
+    }
+
+    public static Node insert(Node head,int target,int data){
+        Node newnode=new Node(data);
+        Node curr=head;
+
+        while(curr!=null && curr.getData()!=target){
+            curr=curr.getNext();
+        }
+        if(curr!=null){
+            newnode.setNext(curr.getNext());
+            curr.setNext(newnode);
+
+        }
+        return head;
+
+    }
+
+    public static Node deleteatLast(Node head){
+        Node curr=head;
+        while(curr.getNext().getNext()!=null){
+            curr=curr.getNext();
+        }
+        curr.setNext(null);
+        return head;
+    }
+
+    public static Node remove(Node head,int target){
+
+        Node curr=head;
+
+        while(curr!=null && curr.getNext().getData()!=target){
+            curr=curr.getNext();
+        }
+       if (curr.getNext().getData()==target){
+           curr.setNext(curr.getNext().getNext());
+
+       }
+        return head;
+
+    }
+    public static Node reverse(Node head) {
+        Node prev = null;
+        Node curr = head;
+        Node next = null;
+
+        while (curr != null) {
+            next = curr.getNext(); // Store the next node
+            curr.setNext(prev); // Reverse the current node's pointer
+            prev = curr; // Move the previous node to the current node
+            curr = next; // Move to the next node
+        }
+
+        return prev; // Prev will be the new head
     }
 
     public static void PrintLinkedList(Node head){
